@@ -1,0 +1,63 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+    typeName: 'Libro',
+    typeNamePlural: 'Libros',
+    typeImageUrl: '',
+    imageUrl: 'Url',
+    title: {
+        type: #STANDARD,
+        label: '',
+        iconUrl: '',
+        criticality: '',
+        criticalityRepresentation: #WITHOUT_ICON,
+        value: 'Titulo',
+        valueQualifier: '',
+        targetElement: '',
+        url: ''
+    },
+    description: {
+        type: #STANDARD,
+        label: '',
+        iconUrl: '',
+        criticality: '',
+        criticalityRepresentation: #WITHOUT_ICON,
+        value: 'Autor',
+        valueQualifier: '',
+        targetElement: '',
+        url: ''
+    } 
+} 
+@Search.searchable: true
+annotate view Z_I_LISTADO_LIBROS_8041
+    with 
+{
+    @UI.facet: [{ id: 'DetallesLibro', label: 'Detalles del libro', type: #COLLECTION, position: 10 },
+                { id: 'Libro', parentId: 'DetallesLibro', label: 'Detalles', type: #FIELDGROUP_REFERENCE, targetQualifier: 'DetallesLibro', position: 10 },
+                { id: 'Cliente', label: 'Clientes', type: #LINEITEM_REFERENCE, targetElement: 'Clientes', position: 20 }]
+    @UI.lineItem: [ { position: 10, importance: #HIGH } ]
+    @UI.selectionField: [ { position: 10 } ]
+    Titulo;
+    @UI.lineItem: [ { position: 20, importance: #LOW } ]
+    Autor;   
+    @UI.fieldGroup: [ { qualifier: 'DetallesLibro', position: 10 } ]
+    @UI.lineItem: [ { position: 30, importance: #MEDIUM } ]
+    @Consumption.valueHelpDefinition:[ { entity: { name: 'z_b_catego_8041', element: 'Descripcion' } } ]
+    DescripcionCategoria;
+    @UI.fieldGroup: [ { qualifier: 'DetallesLibro', position: 20 } ]
+    @UI.lineItem: [ { position: 40, importance: #LOW } ]
+    @Search: {
+        defaultSearchElement: true,
+        ranking: #MEDIUM,
+        fuzzinessThreshold: 0.8
+    }
+    Editorial;
+    @UI.fieldGroup: [ { qualifier: 'DetallesLibro', position: 30 } ]
+    @UI.lineItem: [ { position: 50, importance: #HIGH } ]
+    Precio;
+    @UI.fieldGroup: [ { qualifier: 'DetallesLibro', position: 40 } ]
+    @UI.lineItem: [ { position: 60, importance: #HIGH } ]
+    Moneda;
+    @UI.lineItem: [ { position: 70, importance: #LOW, criticality: 'CantidadVentas' } ]
+    Ventas;
+    
+}
